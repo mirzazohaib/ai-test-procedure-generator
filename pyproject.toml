@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-test-procedure-generator"
+version = "0.1.0"
+description = "AI-powered generator for industrial FAT/SAT test procedures"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = [
+    "openai>=1.0.0",
+    "streamlit>=1.28.0",
+    "pydantic>=2.0.0",
+    "python-dotenv>=1.0.0",
+    "reportlab>=4.0.0"
+]
+
+# This is CRITICAL: It tells setuptools to look for packages in the root
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["app*"]  # Explicitly include your 'app' folder
+namespaces = false
