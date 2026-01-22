@@ -12,24 +12,19 @@ InduSense Analytics follows the **Hexagonal Architecture** (Ports and Adapters) 
 
 ```mermaid
 graph TD
-    User((User)) --> Web["Web Interface (Streamlit)"]
-    Web --> Core["Core Logic (Domain Models)"]
+    User([👷 Engineer]) <--> UI[📱 Streamlit UI]
 
     subgraph "Application Core"
-        Core --> Validation[Validation Engine]
-        Core --> Rules[Business Rules]
+        UI --> Orchestrator[⚙️ Orchestrator]
+        Orchestrator --> Domain[📦 Core Models]
+        Orchestrator --> Rules[🛡️ Validation Rules]
     end
 
     subgraph "Infrastructure / Adapters"
-        AI_Port[AI Provider Interface]
-        PDF_Port[Document Renderer]
-
-        Core --> AI_Port
-        AI_Port --> OpenAI[OpenAI Adapter]
-        AI_Port --> Mock[Mock Adapter]
-
-        Core --> PDF_Port
-        PDF_Port --> ReportLab[PDF Adapter]
+        Orchestrator --> AI[🧠 AI Adapter]
+        Orchestrator --> PDF[📄 PDF Renderer]
+        AI -.-> OpenAI[☁️ OpenAI API]
+        AI -.-> Mock[🤖 Mock Provider]
     end
 ```
 
@@ -37,12 +32,12 @@ graph TD
 
 ## 📂 Project Structure
 
-| Directory | Layer           | Purpose                                                                                                       |
-| --------- | --------------- | ------------------------------------------------------------------------------------------------------------- |
-| app/core  | Domain          | Contains pure Python data models (Project, Signal) and business logic. No external dependencies allowed here. |
-| app/ai    | Infrastructure  | Adapters for AI Providers. Uses the AIProvider interface to switch between Mock and OpenAI.                   |
-| app/web   | Presentation    | The Streamlit UI. This is just a "dumb" view layer that calls the Core.                                       |
-| app/rules | Domain Services | Deterministic validation logic (e.g., "Check if all signals have tests").                                     |
+| Directory     | Layer           | Purpose                                                                                                       |
+| ------------- | --------------- | ------------------------------------------------------------------------------------------------------------- |
+| `app/core`    | Domain          | Contains pure Python data models (Project, Signal) and business logic. No external dependencies allowed here. |
+| `app/ai`      | Infrastructure  | Adapters for AI Providers. Uses the AIProvider interface to switch between Mock and OpenAI.                   |
+| `app/main.py` | Presentation    | The main Streamlit application entry point.                                                                   |
+| `app/rules`   | Domain Services | Deterministic validation logic (e.g., "Check if all signals have tests").                                     |
 
 ---
 

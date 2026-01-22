@@ -45,7 +45,7 @@ For rapid hosting (free tier), this project is fully compatible with Streamlit C
 
 3. Select Repository: `ai-test-procedure-generator`.
 
-4. Main File Path: a`pp/web/streamlit_app.py`.
+4. Main File Path: `app/main.py`.
 
 5. Advanced Settings:
 

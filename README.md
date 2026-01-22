@@ -1,7 +1,9 @@
-# ⚡ AI-Assisted Test Procedure Generator
+# ⚡ AI-Assisted Test Procedure Generator (InduSense)
 
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![CI Pipeline](https://github.com/mirzazohaib/ai-test-procedure-generator/actions/workflows/ci.yml/badge.svg)](https://github.com/mirzazohaib/ai-test-procedure-generator/actions)
 
 > **Automating the critical path from Engineering Requirements to FAT/SAT Procedures.**
 
@@ -20,19 +22,30 @@ In industrial automation (HVAC, Manufacturing, Sensing), engineers spend up to *
 
 **Key Capabilities:**
 
-- **📄 PDF Generation:** Auto-creates signed, formatted Test Procedures.
-- **🛡️ Validation Engine:** Deterministic rule-checks ensure 100% signal coverage.
-- **🧠 Hybrid Intelligence:** Uses LLMs (OpenAI) for text generation but enforces Logic constraints for safety.
+- **📄 PDF Generation:** Auto-creates professional, signed PDF reports using `ReportLab`.
+- **🛡️ Validation Engine:** Deterministic rule-checks ensure 100% signal coverage (prevents AI hallucinations).
+- **💰 Cost Analytics:** Live tracking of Token usage and USD/EUR conversion rates.
+- **🧠 Hybrid Intelligence:** Uses LLMs (OpenAI GPT-4) for creative text generation but enforces strict Logic constraints for safety.
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ System Architecture
 
 The system follows a modular **Hexagonal Architecture** to separate core logic from the AI providers.
 
 - **Core:** Domain models (`Project`, `Signal`, `Requirement`).
 - **AI Layer:** Pluggable providers (Mock for testing, OpenAI for Production).
 - **Interface:** Streamlit Dashboard for rapid prototyping.
+
+---
+
+## 🛠️ Tech Stack
+
+- Frontend: Streamlit (Python)
+- Core Logic: Pydantic (Data Validation), Python 3.11
+- AI Integration: OpenAI API, AsyncIO
+- Document Generation: ReportLab (PDF), FPDF
+- Infrastructure: Azure Web Apps, GitHub Actions (CI/CD)
 
 ---
 
@@ -43,9 +56,11 @@ The system follows a modular **Hexagonal Architecture** to separate core logic f
 ```bash
 git clone [https://github.com/mirzazohaib/ai-test-procedure-generator.git](https://github.com/mirzazohaib/ai-test-procedure-generator.git)
 cd ai-test-procedure-generator
+
 python -m venv venv
 # Windows
 source venv/Scripts/activate
+
 pip install -r requirements.txt
 ```
 
@@ -54,13 +69,14 @@ pip install -r requirements.txt
 Create a .env file for production mode (optional):
 
 ```bash
-OPENAI_API_KEY=sk-...
+OPENAI_API_KEY=sk-proj-12345...
 ```
 
 ### 3. Run the App
 
 ```bash
-python -m streamlit run app/web/streamlit_app.py
+# Run the main entry point (Project Root)
+streamlit run app/main.py
 ```
 
 ---
