@@ -14,7 +14,9 @@ class Settings(BaseSettings):
     """Application configuration with validation"""
     
     # API Configuration
-    openai_api_key: str = Field(..., description="OpenAI API key")
+    # ✅ IMPROVEMENT: Made Optional. No more "Validation Error" if key is missing.
+    openai_api_key: Optional[str] = Field(default=None, description="OpenAI API key")
+    
     openai_model: str = Field(default="gpt-4o-mini", description="Model to use")
     openai_temperature: float = Field(default=0.2, ge=0.0, le=2.0)
     openai_max_tokens: int = Field(default=2000, ge=100, le=4000)
@@ -25,7 +27,9 @@ class Settings(BaseSettings):
     log_level: str = Field(default="INFO", pattern="^(DEBUG|INFO|WARNING|ERROR|CRITICAL)$")
     
     # Paths
-    base_dir: Path = Field(default_factory=lambda: Path(__file__).parent.parent.parent)
+    # ✅ IMPROVEMENT: More robust base path resolution for Azure/Docker
+    base_dir: Path = Field(default_factory=lambda: Path.cwd())
+    
     data_dir: Path = Field(default_factory=lambda: Path("data"))
     output_dir: Path = Field(default_factory=lambda: Path("output"))
     template_dir: Path = Field(default_factory=lambda: Path("app/templates"))
@@ -57,7 +61,8 @@ class Settings(BaseSettings):
         if isinstance(v, str):
             v = Path(v)
         if not v.is_absolute():
-            base = Path(__file__).parent.parent.parent
+            # ✅ IMPROVEMENT: Use the base_dir defined above for consistency
+            base = Path.cwd()
             v = base / v
         return v
     
@@ -83,8 +88,12 @@ def get_settings() -> Settings:
 
 def _ensure_directories(settings: Settings):
     """Create required directories if they don't exist"""
-    for path in [settings.data_dir, settings.output_dir]:
-        path.mkdir(parents=True, exist_ok=True)
+    # ✅ IMPROVEMENT: Silent error handling for read-only filesystems (just in case)
+    try:
+        for path in [settings.data_dir, settings.output_dir]:
+            path.mkdir(parents=True, exist_ok=True)
+    except Exception as e:
+        print(f"Warning: Could not create directories: {e}")
 
 
 # Convenience function for testing

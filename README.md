@@ -4,12 +4,16 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![CI Pipeline](https://github.com/mirzazohaib/ai-test-procedure-generator/actions/workflows/ci.yml/badge.svg)](https://github.com/mirzazohaib/ai-test-procedure-generator/actions)
+[![Azure Deployment](https://github.com/mirzazohaib/ai-test-procedure-generator/actions/workflows/deploy_azure.yml/badge.svg)](https://github.com/mirzazohaib/ai-test-procedure-generator/actions)
+[![Live App](https://img.shields.io/badge/Azure-Live%20App-0078D4?style=flat&logo=microsoft-azure&logoColor=white)](https://indusense-app-h3cbeah2hfcpdqds.francecentral-01.azurewebsites.net/)
 
 > **Automating the critical path from Engineering Requirements to FAT/SAT Procedures.**
 
 ---
 
-### 🎥 Live Demo
+### 🚀 Live Demo
+
+**[👉 Click here to launch the App on Azure](https://indusense-app-h3cbeah2hfcpdqds.francecentral-01.azurewebsites.net/)**
 
 ![InduSense Demo](docs/DEMO.gif)
 _Generating a compliant Factory Acceptance Test in < 2 seconds._
@@ -66,7 +70,9 @@ pip install -r requirements.txt
 
 ### 2. Configuration
 
-Create a .env file for production mode (optional):
+The app runs in Mock Mode by default (free, no API key required).
+
+To enable real GPT-4 generation, create a .env file:
 
 ```bash
 OPENAI_API_KEY=sk-proj-12345...
